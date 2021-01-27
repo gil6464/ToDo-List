@@ -31,22 +31,23 @@ let todoArray;
      taskPriorrity.textContent = selectedNum.value;
      return taskPriorrity;
  }
-//  function toDoItem (input) {
-     // const toDoItem = document.createElement("div");
-     // toDoItem.classList.add("todo-text");
-     // toDoItem.textContent = input;
-//  }
+ function toDoItem (input) {
+     const toDoItem = document.createElement("div");
+     toDoItem.classList.add("todo-text");
+     toDoItem.textContent = input.value;
+     return toDoItem;
+ }
 
 addButton.addEventListener("click", () => {
 
 const container = document.createElement("div");
 container.classList.add("todo-container");
 
-const toDoItem = document.createElement("div");
-toDoItem.classList.add("todo-text");
-toDoItem.textContent = input.value;
+// const toDoItem = document.createElement("div");
+// toDoItem.classList.add("todo-text");
+// toDoItem.textContent = input.value;
 
-     container.append(toDoItem);
+     container.append(toDoItem(input));
      container.append(getPriorrity(selectedNum));
      container.append(getTime());
      viewSection.append(container);
