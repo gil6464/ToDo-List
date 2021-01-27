@@ -11,12 +11,31 @@ const selectedNum = document.getElementById("priority-selector");
 // counter.append(count);
 let todoArray;
 
-if (localStorage.getItem("todoArray") === null) {
-     todoArray= [];
- } else {
-      todoArray.push(JSON.parse(localStorage))
- }
+//  if (localStorage.getItem("todoArray") === null) {
+     // localStorage.setItem("todoArray", " ")
+     // todoArray= [];
+//  } else {
+     // todoArray = (JSON.parse(localStorage.getItem("todoArray")));
+//  }
 
+ function getTime() {
+     const createdAt = document.createElement("div"); 
+     createdAt.classList.add("todo-created-at");
+     createdAt.textContent = new Date().toISOString().slice(0, 19).replace('T', ' ');
+     return createdAt;
+ }
+ 
+ function getPriorrity(selectedNum) {
+     const taskPriorrity = document.createElement("div");
+     taskPriorrity.classList.add("todo-priority");
+     taskPriorrity.textContent = selectedNum.value;
+     return taskPriorrity;
+ }
+//  function toDoItem (input) {
+     // const toDoItem = document.createElement("div");
+     // toDoItem.classList.add("todo-text");
+     // toDoItem.textContent = input;
+//  }
 
 addButton.addEventListener("click", () => {
 
@@ -27,21 +46,13 @@ const toDoItem = document.createElement("div");
 toDoItem.classList.add("todo-text");
 toDoItem.textContent = input.value;
 
-const taskPriorrity = document.createElement("div");
-taskPriorrity.classList.add("todo-priority");
-taskPriorrity.textContent = selectedNum.value;
-
-const createdAt = document.createElement("div");
-createdAt.classList.add("todo-created-at");
-createdAt.textContent = new Date().toISOString().slice(0, 19).replace('T', ' ');
-
      container.append(toDoItem);
-     container.append(taskPriorrity);
-     container.append(createdAt);
+     container.append(getPriorrity(selectedNum));
+     container.append(getTime());
      viewSection.append(container);
      
      input.value = ""
-     numberOfTask ++;
+     // numberOfTask ++;
      
      // const sortButton = document.getElementById("sort-button");
      // sortButton.addEventListener("click", () =>{
