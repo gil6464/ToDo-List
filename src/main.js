@@ -1,58 +1,64 @@
 document.addEventListener("DOMContentLoaded", () => {
-     
-     const addButton = document.getElementById("add-button");
-     const input = document.getElementById("text-input");
-     const viewSection = document.getElementById("view");
-     const selectedNum = document.getElementById("priority-selector");
+
+const addButton = document.getElementById("add-button");
+const input = document.getElementById("text-input");
+const viewSection = document.getElementById("view");
+const selectedNum = document.getElementById("priority-selector");
      
      // let counter = document.getElementById("counter");
      // let numberOfTask = 0;
      // let count = numberOfTask + " TODOs"
      // counter.append(count);
-     let todoArray;
-     
-     
-     function createContainer () {
-          const container = document.createElement("div");
-          container.classList.add("todo-container");
-          return container;
-     }
-     function toDoItem (input) {
-          const toDoItem = document.createElement("div");
-          toDoItem.classList.add("todo-text");
-          toDoItem.textContent = input.value;
-          return toDoItem;
-     }
-     
-     function getPriorrity(selectedNum) {
-          const taskPriorrity = document.createElement("div");
-          taskPriorrity.classList.add("todo-priority");
-          taskPriorrity.textContent = selectedNum.value;
-          return taskPriorrity;
-     }
-     function getTime() {
-          const createdAt = document.createElement("div"); 
-          createdAt.classList.add("todo-created-at");
-          createdAt.textContent = new Date().toISOString().slice(0, 19).replace('T', ' ');
-          return createdAt;
-     }
+let todoArray;
+        
+ function createContainer () {
+     const container = document.createElement("div");
+     container.classList.add("todo-container");
+     return container;
+ }
+ function toDoItem (input) {
+     const toDoItem = document.createElement("div");
+     toDoItem.classList.add("todo-text");
+     toDoItem.textContent = input.value;
+     return toDoItem;
+ }
+ function getPriorrity(selectedNum) {
+     const taskPriorrity = document.createElement("div");
+     taskPriorrity.classList.add("todo-priority");
+     taskPriorrity.textContent = selectedNum.value;
+     return taskPriorrity;
+ }
+ function getTime() {
+     const createdAt = document.createElement("div"); 
+     createdAt.classList.add("todo-created-at");
+     createdAt.textContent = new Date().toISOString().slice(0, 19).replace('T', ' ');
+     return createdAt;
+ }
+ 
+ let task = {
+  priority: getPriorrity(selectedNum).textContent,
+  text : toDoItem(input).textContent,
+  time : getTime().textContent
+ };
      
      addButton.addEventListener("click", () => {
           
-          const container =  createContainer();
-          container.append(toDoItem(input));
-          container.append(getPriorrity(selectedNum));
-          container.append(getTime());
-          viewSection.append(container);
+      const container =  createContainer();
+      container.append(toDoItem(input));
+      container.append(getPriorrity(selectedNum));
+      container.append(getTime());
+      viewSection.append(container);
+
+      input.value = ""
           
-          input.value = ""
-          if (typeof(Storage) !== "null") {
-               todoArray= [];
-               todoArray.push(toDoItem(input.value));
-               console.log(todoArray.value);
-               // const stringTodo = toDoItem(input)
-               // localStorage.setItem("item", stringTodo);
-          }
+
+      if (typeof(Storage) !== "null") {
+       todoArray = [];
+       todoArray.push(task);
+       localStorage.setItem("data", JSON.stringify(todoArray));
+       let getBack = JSON.parse(localStorage.getItem("data"))
+       console.log(getBack);
+      }
      
           // console.log(localStorage.getItem("item"));
 
@@ -65,8 +71,3 @@ document.addEventListener("DOMContentLoaded", () => {
                // })
           });
      });
-     //  if (localStorage.getItem("todoArray") === null) {
-          // localStorage.setItem("todoArray", " ")
-          //  } else {
-               // todoArray = (JSON.parse(localStorage.getItem("todoArray")));
-               //  }
