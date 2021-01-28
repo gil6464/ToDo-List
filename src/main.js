@@ -31,6 +31,7 @@ let todoArray;
      taskPriorrity.textContent = selectedNum.value;
      return taskPriorrity;
  }
+
  function toDoItem (input) {
      const toDoItem = document.createElement("div");
      toDoItem.classList.add("todo-text");
@@ -38,15 +39,18 @@ let todoArray;
      return toDoItem;
  }
 
+ function createContainer () {
+     const container = document.createElement("div");
+     container.classList.add("todo-container");
+     return container;
+ }
+
 addButton.addEventListener("click", () => {
 
-const container = document.createElement("div");
-container.classList.add("todo-container");
+// const container = document.createElement("div");
+// container.classList.add("todo-container");
 
-// const toDoItem = document.createElement("div");
-// toDoItem.classList.add("todo-text");
-// toDoItem.textContent = input.value;
-
+     const container =  createContainer();
      container.append(toDoItem(input));
      container.append(getPriorrity(selectedNum));
      container.append(getTime());
@@ -62,5 +66,4 @@ container.classList.add("todo-container");
           // })
           
      });
-     
 });
