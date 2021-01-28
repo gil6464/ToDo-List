@@ -50,15 +50,17 @@ addButton.addEventListener("click", () => {
      input.value = ""
      
      if (localStorage.getItem("my-todo") === "null") {
-          todoArray = [];
           todoArray.push(task);
           localStorage.setItem("my-todo", JSON.stringify(todoArray));
-          let getBack = JSON.parse(localStorage.getItem("my-todo"))
-          console.log(getBack);
      } else {
+          localStorage.clear("my-todo");
+          todoArray.push(task);
           localStorage.setItem("my-todo", JSON.stringify(todoArray));
      }
      
 });
 });
 
+// todoArray.push(JSON.parse(localStorage.getItem("my-todo")));
+// let getBack = JSON.parse(localStorage.getItem("my-todo"))
+          // console.log(getBack);
