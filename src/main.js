@@ -6,7 +6,7 @@ const viewSection = document.getElementById("view");
 const selectedNum = document.getElementById("priority-selector");
 const sortButton = document.getElementById("sort-button");
 const counter = document.getElementById("counter");
-counter.append(countTask());
+countTask();
 
 function createContainer () {
      const container = document.createElement("div");
@@ -50,8 +50,8 @@ function countTask () {
           lengthOfTask = [];
      } else {
           lengthOfTask = JSON.parse(getLocalStorage);
-          counter.textContent = lengthOfTask.length
      }
+     counter.textContent = lengthOfTask.length
 }
 
 addButton.addEventListener("click", () => {
@@ -71,18 +71,21 @@ addButton.addEventListener("click", () => {
      
      todoArray.push(task);
      localStorage.setItem("my-todo", JSON.stringify(todoArray));    
+      
+     counter.innerHTML = " ";
+     countTask();
 });
 sortButton.addEventListener("click", () => {
      todoArray = todoArray.sort((a,b) => Number(b.priority) - Number(a.priority));
      viewSection.innerHTML = " ";
 
-     for (let data of todoArray) {
-          const container =  createContainer();
-          container.append(toDoItem(data.text));
-          container.append(getPriorrity(data.priority));
-          container.append(getTime(data.date));
-          viewSection.append(container);
-    }
+ for (let data of todoArray) {
+     const container =  createContainer();
+     container.append(toDoItem(data.text));
+     container.append(getPriorrity(data.priority));
+     container.append(getTime(data.date));
+     viewSection.append(container);
+ }
      
 })
 });
