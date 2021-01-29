@@ -1,1 +1,11 @@
-  
+ body {
+    text-align: center;   
+    background-color: lightsteelblue;
+ }
+ .todo-container {
+     width: 120px;
+     height: 55px;
+     display: inline-flex;
+     flex-wrap: wrap;   
+     border: 1px solid black;  
+}

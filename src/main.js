@@ -12,47 +12,47 @@ function createContainer () {
      const container = document.createElement("div");
      container.classList.add("todo-container");
      return container;
-}
+};
 function toDoItem (text) {
      const toDoItem = document.createElement("div");
      toDoItem.classList.add("todo-text");
      toDoItem.textContent = text;
      return toDoItem;
-}
+};
 function getPriorrity(num) {
      const taskPriorrity = document.createElement("div");
      taskPriorrity.classList.add("todo-priority");
      taskPriorrity.textContent = num;
      return taskPriorrity;
-}
+};
 function getTime(time = new Date().getTime()) {
      const createdAt = document.createElement("div"); 
      createdAt.classList.add("todo-created-at");
      createdAt.textContent = new Date(time).toISOString().slice(0, 19).replace('T', ' ');
      return createdAt;
-}
+};
 
-let todoArray= JSON.parse(localStorage.getItem("my-todo"));
-if (todoArray === null) {
+let  todoArray= JSON.parse(localStorage.getItem("my-todo"));
+if  (todoArray === null) {
      todoArray = [];
-} 
+};
 for (const data of todoArray) {
      const container =  createContainer();
      container.append(toDoItem(data.text));
      container.append(getPriorrity(data.priority));
      container.append(getTime(data.date));
      viewSection.append(container);
-}
+};
 
 function countTask () {
      let getLocalStorage = localStorage.getItem("my-todo");
-     if (getLocalStorage === null) {
-          lengthOfTask = [];
+     if  (getLocalStorage === null) {
+         lengthOfTask = [];
      } else {
-          lengthOfTask = JSON.parse(getLocalStorage);
+         lengthOfTask = JSON.parse(getLocalStorage);
      }
-     counter.textContent = lengthOfTask.length
-}
+         counter.textContent = lengthOfTask.length
+};
 
 addButton.addEventListener("click", () => {
      
@@ -85,7 +85,7 @@ sortButton.addEventListener("click", () => {
      container.append(getPriorrity(data.priority));
      container.append(getTime(data.date));
      viewSection.append(container);
- }
+ };
      
 })
 });
