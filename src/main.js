@@ -4,10 +4,17 @@ const input = document.getElementById("text-input");
 const addButton = document.getElementById("add-button");
 const viewSection = document.getElementById("view");
 const selectedNum = document.getElementById("priority-selector");
+const clearBUtton = document.getElementById("clear");
 const sortButton = document.getElementById("sort-button");
 const counter = document.getElementById("counter");
 countTask();
 
+clearBUtton.addEventListener("click", () =>{ 
+     localStorage.clear();
+     viewSection.innerHTML = " ";
+     counter.textContent = 0;
+     todoArray = [];
+})
 function createContainer () {
      const container = document.createElement("div");
      container.classList.add("todo-container");
@@ -94,14 +101,14 @@ sortButton.addEventListener("click", () => {
  };
 
 })
-deleteButton.addEventListener("click", ()=> {
-     let todoCotainers = document.querySelectorAll(".todo-container")
-
-     for (let tasks of todoCotainers){
-          tasks.firstChild.addEventListener("click", () =>{
-               tasks.remove();
-          })
-     }
-})
+// deleteButton.addEventListener("click", ()=> {
+     // let todoCotainers = document.querySelectorAll(".todo-container")
+// 
+     // for (let tasks of todoCotainers){
+          // tasks.firstChild.addEventListener("click", () =>{
+               // tasks.remove();
+          // })
+     // }
+// })
 })
 
