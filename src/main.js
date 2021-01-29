@@ -1,10 +1,12 @@
 document.addEventListener("DOMContentLoaded", () => {
-
+     
 const input = document.getElementById("text-input");
 const addButton = document.getElementById("add-button");
 const viewSection = document.getElementById("view");
 const selectedNum = document.getElementById("priority-selector");
 const sortButton = document.getElementById("sort-button");
+const counter = document.getElementById("counter");
+counter.append(countTask());
 
 function createContainer () {
      const container = document.createElement("div");
@@ -34,13 +36,23 @@ let todoArray= JSON.parse(localStorage.getItem("my-todo"));
 if (todoArray === null) {
      todoArray = [];
 } 
- for (const data of todoArray) {
+for (const data of todoArray) {
      const container =  createContainer();
      container.append(toDoItem(data.text));
      container.append(getPriorrity(data.priority));
      container.append(getTime(data.date));
      viewSection.append(container);
- }
+}
+
+function countTask () {
+     let getLocalStorage = localStorage.getItem("my-todo");
+     if (getLocalStorage === null) {
+          lengthOfTask = [];
+     } else {
+          lengthOfTask = JSON.parse(getLocalStorage);
+          counter.textContent = lengthOfTask.length
+     }
+}
 
 addButton.addEventListener("click", () => {
      
@@ -58,13 +70,10 @@ addButton.addEventListener("click", () => {
      input.value = ""
      
      todoArray.push(task);
-     localStorage.setItem("my-todo", JSON.stringify(todoArray));
-     
+     localStorage.setItem("my-todo", JSON.stringify(todoArray));    
 });
-console.log(todoArray[0]);
 sortButton.addEventListener("click", () => {
      todoArray = todoArray.sort((a,b) => Number(b.priority) - Number(a.priority));
-     console.log(todoArray);
      viewSection.innerHTML = " ";
 
      for (let data of todoArray) {
@@ -77,9 +86,3 @@ sortButton.addEventListener("click", () => {
      
 })
 });
-
-
-// let counter = document.getElementById("counter");
-// let numberOfTask = 0;
-// let count = numberOfTask + " TODOs"
-// counter.append(count);
