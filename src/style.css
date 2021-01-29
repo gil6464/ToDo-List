@@ -1,11 +1,14 @@
  body {
     text-align: center;   
-    background-color: lightsteelblue;
+    background-color: rgb(22, 255, 72);
  }
  .todo-container {
      width: 120px;
      height: 55px;
-     display: inline-flex;
+     display: -webkit-inline-flex;
      flex-wrap: wrap;   
      border: 1px solid black;  
 }
+ /* .todo-text { */
+      /* color: rgba(223, 5, 5, 0); */
+ /* } */
