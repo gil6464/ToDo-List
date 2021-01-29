@@ -4,6 +4,7 @@ const input = document.getElementById("text-input");
 const addButton = document.getElementById("add-button");
 const viewSection = document.getElementById("view");
 const selectedNum = document.getElementById("priority-selector");
+const sortButton = document.getElementById("sort-button");
 
 function createContainer () {
      const container = document.createElement("div");
@@ -28,8 +29,8 @@ function getTime(time = new Date().getTime()) {
      createdAt.textContent = new Date(time).toISOString().slice(0, 19).replace('T', ' ');
      return createdAt;
 }
+
 let todoArray= JSON.parse(localStorage.getItem("my-todo"));
-console.log(todoArray)
 if (todoArray === null) {
      todoArray = [];
 } 
@@ -40,6 +41,7 @@ if (todoArray === null) {
      container.append(getTime(data.date));
      viewSection.append(container);
  }
+
 addButton.addEventListener("click", () => {
      
      let task = {
@@ -59,11 +61,24 @@ addButton.addEventListener("click", () => {
      localStorage.setItem("my-todo", JSON.stringify(todoArray));
      
 });
+console.log(todoArray[0]);
+sortButton.addEventListener("click", () => {
+     todoArray = todoArray.sort((a,b) => Number(b.priority) - Number(a.priority));
+     console.log(todoArray);
+     viewSection.innerHTML = " ";
+
+     for (let data of todoArray) {
+          const container =  createContainer();
+          container.append(toDoItem(data.text));
+          container.append(getPriorrity(data.priority));
+          container.append(getTime(data.date));
+          viewSection.append(container);
+    }
+     
+})
 });
 
-// todoArray.push(JSON.parse(localStorage.getItem("my-todo")));
-// let getBack = JSON.parse(localStorage.getItem("my-todo"))
-// console.log(getBack);
+
 // let counter = document.getElementById("counter");
 // let numberOfTask = 0;
 // let count = numberOfTask + " TODOs"
