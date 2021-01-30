@@ -1,43 +1,50 @@
  body {
-    text-align: center;   
-    background-image: url(./InkedTodo.jpg);
-     margin-left: auto;
-     margin-right: auto;
-     background-position: top ;
-     background-repeat: no-repeat;
-     background-attachment: fixed;
-     background-size: 70% 100%;
+   background-color: lightskyblue;
+ }
+ #pic {
+     object-fit: cover;
+     object-position: 50% 0 ;
+     display: block;
+     height: 200px;
+     width: 600px;
+ }
+ .image {
+      display: flex;
+      justify-content: center;
+      align-items: center;
  }
  .control {
-      position: relative;
-      top: 120px;
+      display: flex;
+      justify-content: center;
  }
  .view {
-     position: fixed;
-     top: 150px; 
-     width: 120px;
- }
+     display: flex;
+     align-items: center;
+     flex-direction: column;
+}
  #text-input {
-      width: 430px;
+     width: 430px;
  }
  #counter {
-      position: fixed;
-      top: 45px;
-      right: 380px;
-      font-size: 40px;
-      font-style: italic;
+     font-size: 40px;
+     font-style: italic;
+     position: relative;
+     left: -100px;
  }
  .todo-container {
+     display: flex;
      height: 55px;
-     display: -webkit-inline-flex;
-     flex-wrap: wrap;    
+     flex-wrap: nowrap;  
+     justify-content: space-between;  
+     width: 30%;
+     align-items: center;
 } 
  .todo-text { 
       color: black;
-      float: left;
+      display: inline;
  }
  .todo-priority {
-      float: inline-end;
+     color: crimson;
  }
  .delete-button {
       float: right;

@@ -43,12 +43,7 @@ if  (todoArray === null) {
      todoArray = [];
 };
 for (const data of todoArray) {
-     const container =  createContainer();
-     container.append(createDeleteButton());
-     container.append(toDoItem(data.text));
-     container.append(getPriorrity(data.priority));
-     container.append(getTime(data.date));
-     viewSection.append(container);
+     viewSection.append(createDiv(data));
 };
 
 function countTask () {
@@ -60,7 +55,14 @@ function countTask () {
      }
      counter.textContent = lengthOfTask.length
 };
-
+function createDiv (data) {
+     const container =  createContainer();
+     container.append(createDeleteButton());
+     container.append(toDoItem(data.text));
+     container.append(getPriorrity(data.priority));
+     container.append(getTime(data.date));
+     return container;
+}
 addButton.addEventListener("click", () => {
      
      let task = {
@@ -69,9 +71,9 @@ addButton.addEventListener("click", () => {
           date : new Date().getTime()
      };
      const container =  createContainer();
+     container.append(createDeleteButton());
      container.append(toDoItem(task.text));
      container.append(getPriorrity(task.priority));
-     container.append(createDeleteButton());
      container.append(getTime(task.date));
      viewSection.append(container);
      
