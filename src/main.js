@@ -9,12 +9,6 @@ const sortButton = document.getElementById("sort-button");
 const counter = document.getElementById("counter");
 countTask();
 
-clearBUtton.addEventListener("click", () =>{ 
-     localStorage.clear();
-     viewSection.innerHTML = " ";
-     counter.textContent = 0;
-     todoArray = [];
-})
 function createContainer () {
      const container = document.createElement("div");
      container.classList.add("todo-container");
@@ -41,6 +35,7 @@ function getTime(time = new Date().getTime()) {
 function createDeleteButton () {
      const deleteButton = document.createElement("button");
      deleteButton.innerText = "x";
+     deleteButton.classList.add("delete-button");
      return deleteButton;
 }
 let  todoArray= JSON.parse(localStorage.getItem("my-todo"));
@@ -49,6 +44,7 @@ if  (todoArray === null) {
 };
 for (const data of todoArray) {
      const container =  createContainer();
+     container.append(createDeleteButton());
      container.append(toDoItem(data.text));
      container.append(getPriorrity(data.priority));
      container.append(getTime(data.date));
@@ -58,19 +54,19 @@ for (const data of todoArray) {
 function countTask () {
      let getLocalStorage = localStorage.getItem("my-todo");
      if  (getLocalStorage === null) {
-         lengthOfTask = [];
+          lengthOfTask = [];
      } else {
-         lengthOfTask = JSON.parse(getLocalStorage);
+          lengthOfTask = JSON.parse(getLocalStorage);
      }
-         counter.textContent = lengthOfTask.length
+     counter.textContent = lengthOfTask.length
 };
 
 addButton.addEventListener("click", () => {
      
      let task = {
-      priority: selectedNum.value,
-      text : input.value,
-      date : new Date().getTime()
+          priority: selectedNum.value,
+          text : input.value,
+          date : new Date().getTime()
      };
      const container =  createContainer();
      container.append(toDoItem(task.text));
@@ -86,29 +82,40 @@ addButton.addEventListener("click", () => {
      
      counter.innerHTML = " ";
      countTask();   
-
+     
 });
 sortButton.addEventListener("click", () => {
      todoArray = todoArray.sort((a,b) => Number(b.priority) - Number(a.priority));
      viewSection.innerHTML = " ";
-
- for (let data of todoArray) {
-     const container =  createContainer();
-     container.append(toDoItem(data.text));
-     container.append(getPriorrity(data.priority));
-     container.append(getTime(data.date));
-     viewSection.append(container);
- };
-
+     
+     for (let data of todoArray) {
+          const container =  createContainer();
+          container.append(createDeleteButton());
+          container.append(toDoItem(data.text));
+          container.append(getPriorrity(data.priority));
+          container.append(getTime(data.date));
+          viewSection.append(container);
+          localStorage.setItem("my-todo", JSON.stringify(todoArray));
+          
+     };
+     
+})
+clearBUtton.addEventListener("click", () =>{ 
+     localStorage.clear();
+     viewSection.innerHTML = " ";
+     counter.textContent = 0;
+     todoArray = [];
 })
 // deleteButton.addEventListener("click", ()=> {
      // let todoCotainers = document.querySelectorAll(".todo-container")
-// 
+     // 
      // for (let tasks of todoCotainers){
           // tasks.firstChild.addEventListener("click", () =>{
                // tasks.remove();
-          // })
-     // }
-// })
-})
-
+               // })
+               // }
+               // })
+          })
+     
+          
+          
