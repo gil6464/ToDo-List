@@ -70,12 +70,7 @@ addButton.addEventListener("click", () => {
           text : input.value,
           date : new Date().getTime()
      };
-     const container =  createContainer();
-     container.append(createDeleteButton());
-     container.append(toDoItem(task.text));
-     container.append(getPriorrity(task.priority));
-     container.append(getTime(task.date));
-     viewSection.append(container);
+     viewSection.append(createDiv(task));
      
      input.value = ""
      
@@ -83,24 +78,16 @@ addButton.addEventListener("click", () => {
      localStorage.setItem("my-todo", JSON.stringify(todoArray));    
      
      counter.innerHTML = " ";
-     countTask();   
-     
+     countTask();      
 });
 sortButton.addEventListener("click", () => {
      todoArray = todoArray.sort((a,b) => Number(b.priority) - Number(a.priority));
      viewSection.innerHTML = " ";
      
      for (let data of todoArray) {
-          const container =  createContainer();
-          container.append(createDeleteButton());
-          container.append(toDoItem(data.text));
-          container.append(getPriorrity(data.priority));
-          container.append(getTime(data.date));
-          viewSection.append(container);
-          localStorage.setItem("my-todo", JSON.stringify(todoArray));
-          
-     };
-     
+          viewSection.append(createDiv(data));
+          localStorage.setItem("my-todo", JSON.stringify(todoArray));  
+     };  
 })
 clearBUtton.addEventListener("click", () =>{ 
      localStorage.clear();
@@ -118,6 +105,3 @@ clearBUtton.addEventListener("click", () =>{
                // }
                // })
           })
-     
-          
-          
