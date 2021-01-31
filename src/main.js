@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", async() => {
 
 const body = document.getElementById("body");     
 const input = document.getElementById("text-input");
@@ -8,6 +8,14 @@ const selectedNum = document.getElementById("priority-selector");
 const clearBUtton = document.getElementById("clear");
 const sortButton = document.getElementById("sort-button");
 const counter = document.getElementById("counter");
+
+let  todoArray = await getPersistent();
+if  (todoArray === null) {
+     todoArray = [];
+};
+for (const data of todoArray) {
+     viewSection.append(createDiv(data));
+};
 
 countTask();
 
@@ -41,13 +49,7 @@ function createDeleteButton () {
      return deleteButton;
 };
 function countTask () {
-     let getLocalStorage = localStorage.getItem("my-todo");
-     if  (getLocalStorage === null) {
-          lengthOfTask = [];
-     } else {
-          lengthOfTask = JSON.parse(getLocalStorage);
-     }
-     counter.textContent = lengthOfTask.length
+   counter.textContent = todoArray.length
 };
 function createDiv (data) {
      const container =  createContainer();
@@ -57,13 +59,6 @@ function createDiv (data) {
      container.append(getTime(data.date));
      return container;
 }
-let  todoArray= JSON.parse(localStorage.getItem("my-todo"));
-if  (todoArray === null) {
-     todoArray = [];
-};
-for (const data of todoArray) {
-     viewSection.append(createDiv(data));
-};
 
 addButton.addEventListener("click", () => {
      
@@ -77,9 +72,8 @@ addButton.addEventListener("click", () => {
      input.value = ""
      
      todoArray.push(task);
-     localStorage.setItem("my-todo", JSON.stringify(todoArray));    
+     setPersistent(todoArray);    
      
-     counter.innerHTML = " ";
      countTask();      
 });
 sortButton.addEventListener("click", () => {
@@ -88,22 +82,25 @@ sortButton.addEventListener("click", () => {
      
      for (let data of todoArray) {
           viewSection.append(createDiv(data));
-          localStorage.setItem("my-todo", JSON.stringify(todoArray));  
      };  
 });
 clearBUtton.addEventListener("click", () => { 
-     localStorage.clear();
      viewSection.innerHTML = " ";
      counter.textContent = 0;
      todoArray = [];
+     setPersistent(todoArray);
 });
 
 body.addEventListener("click", (event) => {
      if (event.target.className !== ("delete-button")) {
           return;
      } else {
+          const containerArray = document.querySelectorAll(".todo-container");
+          const index = Array.from(containerArray).indexOf(event.target.parentNode);
           event.target.parentNode.remove();
-          console.log(todoArray); 
+          todoArray.splice(index,1);
+          countTask();
+          setPersistent(todoArray);
      }
 })
 
