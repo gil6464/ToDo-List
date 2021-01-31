@@ -1,5 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
 
+const body = document.getElementById("body");     
 const input = document.getElementById("text-input");
 const addButton = document.getElementById("add-button");
 const viewSection = document.getElementById("view");
@@ -7,8 +8,8 @@ const selectedNum = document.getElementById("priority-selector");
 const clearBUtton = document.getElementById("clear");
 const sortButton = document.getElementById("sort-button");
 const counter = document.getElementById("counter");
+
 countTask();
-storgeData();
 
 function createContainer () {
      const container = document.createElement("div");
@@ -56,15 +57,14 @@ function createDiv (data) {
      container.append(getTime(data.date));
      return container;
 }
-async function storgeData () {
-let  todoArray= await JSON.parse(localStorage.getItem("my-todo"));
+let  todoArray= JSON.parse(localStorage.getItem("my-todo"));
 if  (todoArray === null) {
      todoArray = [];
 };
 for (const data of todoArray) {
      viewSection.append(createDiv(data));
 };
-}
+
 addButton.addEventListener("click", () => {
      
      let task = {
@@ -97,4 +97,14 @@ clearBUtton.addEventListener("click", () => {
      counter.textContent = 0;
      todoArray = [];
 });
+
+body.addEventListener("click", (event) => {
+     if (event.target.className !== ("delete-button")) {
+          return;
+     } else {
+          event.target.parentNode.remove();
+          console.log(todoArray); 
+     }
 })
+
+}) 

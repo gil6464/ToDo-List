@@ -32,12 +32,9 @@
      top : -10px;
  }
  .todo-container {
-     /* background-color: blanchedalmond; */
-     border: none;
      border-bottom: 3px solid black;
      display: flex;
      height: 55px;
-     flex-wrap: nowrap;  
      justify-content: space-between;  
      width: 35%;
      align-items: center;
@@ -56,6 +53,4 @@
  .todo-text {
      font-size: 20px;
  }
- .delete-button {
-      float: right;
- }
+
