@@ -70,6 +70,8 @@ function countTask () {
 
 addButton.addEventListener("click", () => {
      
+     addTaskSound.play();
+
      let task = {
           priority: selectedNum.value,
           text : input.value,
@@ -83,7 +85,6 @@ addButton.addEventListener("click", () => {
      setPersistent(todoArray);    
      
      countTask();      
-     addTaskSound.play();
 });
 sortButton.addEventListener("click", () => {
      todoArray = todoArray.sort((a,b) => Number(b.priority) - Number(a.priority));
@@ -108,12 +109,12 @@ body.addEventListener("click", (event) => {
      switch (event.target.className) {
           case ("delete-button"): 
 
-             const containerArray = document.querySelectorAll(".todo-container");
-             const index = Array.from(containerArray).indexOf(event.target.parentNode);
-             event.target.parentNode.remove();
-             todoArray.splice(index,1);
-             countTask();
-             setPersistent(todoArray);
+               const containerArray = document.querySelectorAll(".todo-container");
+               const index = Array.from(containerArray).indexOf(event.target.parentNode);
+               event.target.parentNode.remove();
+               todoArray.splice(index,1);
+               countTask();
+               setPersistent(todoArray);
                break;
      
           case ("edit-button"):
@@ -122,7 +123,23 @@ body.addEventListener("click", (event) => {
                saveChange.textContent = "Save"
                event.target.parentNode.append(editTask);
                event.target.parentNode.append(saveChange);
-               event.target.text = editTask.value
+
+               saveChange.addEventListener("click", () =>{
+               const container = event.target.parentNode;
+               const text = container.querySelector(".todo-text");
+
+               text.innerText = editTask.value;
+                    
+               editTask.style.display = "none";
+               saveChange.style.display = "none";
+                    
+               const containerArray = document.querySelectorAll(".todo-container");
+               const index = Array.from(containerArray).indexOf(event.target.parentNode);
+               todoArray[index].text = editTask.value;
+               setPersistent(todoArray);
+
+                    editTask.value = "";
+               })
                break;
      }
    
