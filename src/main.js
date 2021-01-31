@@ -8,6 +8,7 @@ const selectedNum = document.getElementById("priority-selector");
 const clearBUtton = document.getElementById("clear");
 const sortButton = document.getElementById("sort-button");
 const counter = document.getElementById("counter");
+const addTaskSound = document.getElementById("addTaskSound");
 
 let  todoArray = await getPersistent();
 if  (todoArray === null) {
@@ -48,9 +49,6 @@ function createDeleteButton () {
      deleteButton.classList.add("delete-button");
      return deleteButton;
 };
-function countTask () {
-   counter.textContent = todoArray.length
-};
 function createDiv (data) {
      const container =  createContainer();
      container.append(createDeleteButton());
@@ -59,6 +57,9 @@ function createDiv (data) {
      container.append(getTime(data.date));
      return container;
 }
+function countTask () {
+   counter.textContent = todoArray.length
+};
 
 addButton.addEventListener("click", () => {
      
@@ -75,6 +76,7 @@ addButton.addEventListener("click", () => {
      setPersistent(todoArray);    
      
      countTask();      
+     addTaskSound.play();
 });
 sortButton.addEventListener("click", () => {
      todoArray = todoArray.sort((a,b) => Number(b.priority) - Number(a.priority));
@@ -85,10 +87,13 @@ sortButton.addEventListener("click", () => {
      };  
 });
 clearBUtton.addEventListener("click", () => { 
+     const clientChoice = confirm("You sure you want to clear all?");
+     if (clientChoice) {
      viewSection.innerHTML = " ";
      counter.textContent = 0;
      todoArray = [];
      setPersistent(todoArray);
+     }
 });
 
 body.addEventListener("click", (event) => {
