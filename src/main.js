@@ -49,12 +49,19 @@ function createDeleteButton () {
      deleteButton.classList.add("delete-button");
      return deleteButton;
 };
+function createEditButton () {
+  const editButton = document.createElement("button");
+  editButton.innerText = "Edit";
+  editButton.classList.add("edit-button");
+  return editButton   
+}
 function createDiv (data) {
      const container =  createContainer();
      container.append(createDeleteButton());
      container.append(toDoItem(data.text));
      container.append(getPriorrity(data.priority));
      container.append(getTime(data.date));
+     container.append(createEditButton());
      return container;
 }
 function countTask () {
@@ -97,16 +104,28 @@ clearBUtton.addEventListener("click", () => {
 });
 
 body.addEventListener("click", (event) => {
-     if (event.target.className !== ("delete-button")) {
-          return;
-     } else {
-          const containerArray = document.querySelectorAll(".todo-container");
-          const index = Array.from(containerArray).indexOf(event.target.parentNode);
-          event.target.parentNode.remove();
-          todoArray.splice(index,1);
-          countTask();
-          setPersistent(todoArray);
+
+     switch (event.target.className) {
+          case ("delete-button"): 
+
+             const containerArray = document.querySelectorAll(".todo-container");
+             const index = Array.from(containerArray).indexOf(event.target.parentNode);
+             event.target.parentNode.remove();
+             todoArray.splice(index,1);
+             countTask();
+             setPersistent(todoArray);
+               break;
+     
+          case ("edit-button"):
+               const editTask = document.createElement("input");
+               const saveChange = document.createElement("button");
+               saveChange.textContent = "Save"
+               event.target.parentNode.append(editTask);
+               event.target.parentNode.append(saveChange);
+               event.target.text = editTask.value
+               break;
      }
+   
 })
 
 }) 
