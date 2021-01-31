@@ -38,13 +38,6 @@ function createDeleteButton () {
      deleteButton.classList.add("delete-button");
      return deleteButton;
 }
-let  todoArray= JSON.parse(localStorage.getItem("my-todo"));
-if  (todoArray === null) {
-     todoArray = [];
-};
-for (const data of todoArray) {
-     viewSection.append(createDiv(data));
-};
 
 function countTask () {
      let getLocalStorage = localStorage.getItem("my-todo");
@@ -63,6 +56,13 @@ function createDiv (data) {
      container.append(getTime(data.date));
      return container;
 }
+let  todoArray= JSON.parse(localStorage.getItem("my-todo"));
+if  (todoArray === null) {
+     todoArray = [];
+};
+for (const data of todoArray) {
+     viewSection.append(createDiv(data));
+};
 addButton.addEventListener("click", () => {
      
      let task = {
@@ -88,13 +88,13 @@ sortButton.addEventListener("click", () => {
           viewSection.append(createDiv(data));
           localStorage.setItem("my-todo", JSON.stringify(todoArray));  
      };  
-})
-clearBUtton.addEventListener("click", () =>{ 
+});
+clearBUtton.addEventListener("click", () => { 
      localStorage.clear();
      viewSection.innerHTML = " ";
      counter.textContent = 0;
      todoArray = [];
-})
+});
 // deleteButton.addEventListener("click", ()=> {
      // let todoCotainers = document.querySelectorAll(".todo-container")
      // 
