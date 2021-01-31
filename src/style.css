@@ -1,6 +1,6 @@
- body {
-   background-color: lightskyblue;
- }
+/* body{
+     /* background-color: rgb(243, 243, 243); */
+
  #pic {
      object-fit: cover;
      object-position: 50% 0 ;
@@ -23,28 +23,41 @@
      flex-direction: column;
 }
  #text-input {
-     width: 430px;
+     width: 370px;
+     font-family: "Comic Sans MS", "Comic Sans", cursive;
  }
  #counter {
+     font-family: "Comic Sans MS", "Comic Sans", cursive;
      font-size: 40px;
      font-style: italic;
      position: relative;
-     left: -100px;
+     left: -130px;
+     top : -10px;
  }
  .todo-container {
+     /* background-color: blanchedalmond; */
+     border: none;
+     border-bottom: 3px solid black;
      display: flex;
      height: 55px;
      flex-wrap: nowrap;  
      justify-content: space-between;  
-     width: 30%;
+     width: 35%;
      align-items: center;
+     
 } 
- .todo-text { 
-      color: black;
-      display: inline;
+ div {
+     font-family: "Comic Sans MS", "Comic Sans", cursive;
+     font-size: 15px;
+     margin: 1%;
  }
- .todo-priority {
-     color: crimson;
+ button {
+     font-family: "Comic Sans MS", "Comic Sans", cursive;
+     background-color: blanchedalmond;
+
+ }
+ .todo-text {
+     font-size: 20px;
  }
  .delete-button {
       float: right;
