@@ -69,12 +69,12 @@ function createPlusButton () {
 }
 function createDiv (data) {
      const container =  createContainer();
-     container.append(createDeleteButton());
-     container.append(toDoItem(data.text));
-     container.append(getPriorrity(data.priority));
      container.append(createMinusButton());
+     container.append(getPriorrity(data.priority));
      container.append(createPlusButton());
+     container.append(toDoItem(data.text));
      container.append(getTime(data.date));
+     container.append(createDeleteButton());
      container.append(createEditButton());
      return container;
 }
@@ -132,12 +132,13 @@ body.addEventListener("click", (event) => {
                break;
      
           case ("edit-button") :
+
                const editTask = document.createElement("input");
                const saveChange = document.createElement("button");
                saveChange.textContent = "Save"
                event.target.parentNode.append(editTask);
                event.target.parentNode.append(saveChange);
-               
+              
                saveChange.addEventListener("click", () => {
                const containerArray = document.querySelectorAll(".todo-container");
                const index = Array.from(containerArray).indexOf(event.target.parentNode);
@@ -157,6 +158,7 @@ body.addEventListener("click", (event) => {
                break;
 
           case ("minus-button") :  
+
                let containerMinus = document.querySelectorAll(".todo-container"); // select all containers
                let spotMinus = Array.from(containerMinus).indexOf(event.target.parentNode); // get the specific one
                let numMinus = Number(todoArray[spotMinus].priority); // change the value to num
@@ -166,12 +168,13 @@ body.addEventListener("click", (event) => {
                let containerForMinus = event.target.parentNode;
                let priority = containerForMinus.querySelector(".todo-priority");
                priority.innerText = numMinus ;
-               
+
                todoArray[spotMinus].priority = numMinus;
                setPersistent(todoArray);
 
                break;
           case ("plus-button") :  
+
                let containerPluss = document.querySelectorAll(".todo-container");
                let spotPluss = Array.from(containerPluss).indexOf(event.target.parentNode);
                let numPluss = Number(todoArray[spotPluss].priority);
@@ -189,6 +192,6 @@ body.addEventListener("click", (event) => {
 
      };
    
-})
+});
 
-}) 
+});

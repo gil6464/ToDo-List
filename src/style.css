@@ -35,11 +35,25 @@
      border-bottom: 3px solid black;
      display: flex;
      height: 55px;
-     justify-content: space-between;  
+     /* justify-content: space-between; */
      width: 90%;
      align-items: center;
      
 } 
+ .delete-button {
+     flex : 0.1;
+ }
+  .todo-text {
+      flex : 1;
+      text-align: center;
+  }
+  .todo-created-at {
+      flex : 1;
+      text-align: center;
+ }
+ .edit-button {
+     flex : 0.1;
+ }
  div {
      font-family: "Comic Sans MS", "Comic Sans", cursive;
      font-size: 15px;
