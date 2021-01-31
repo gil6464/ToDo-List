@@ -53,7 +53,7 @@ function createEditButton () {
   const editButton = document.createElement("button");
   editButton.innerText = "Edit";
   editButton.classList.add("edit-button");
-  return editButton   
+  return editButton ;
 };
 function createMinusButton () {
      const minusButton = document.createElement("button");
@@ -79,11 +79,15 @@ function createDiv (data) {
      return container;
 }
 function countTask () {
-   counter.textContent = todoArray.length
+   counter.textContent = todoArray.length;
 };
 
 addButton.addEventListener("click", () => {
      
+     if (input.value === ' '){
+          alert("Must to write something!")
+          return;
+     }
      addTaskSound.play();
 
      let task = {
@@ -111,10 +115,10 @@ sortButton.addEventListener("click", () => {
 clearBUtton.addEventListener("click", () => { 
      const clientChoice = confirm("You sure you want to clear all?");
      if (clientChoice) {
-     viewSection.innerHTML = " ";
-     counter.textContent = 0;
-     todoArray = [];
-     setPersistent(todoArray);
+      viewSection.innerHTML = " ";
+      counter.textContent = 0;
+      todoArray = [];
+      setPersistent(todoArray);
      }
 });
 
@@ -135,7 +139,8 @@ body.addEventListener("click", (event) => {
 
                const editTask = document.createElement("input");
                const saveChange = document.createElement("button");
-               saveChange.textContent = "Save"
+               saveChange.textContent = "Save";
+               event.target.hidden = true ;
                event.target.parentNode.append(editTask);
                event.target.parentNode.append(saveChange);
               
@@ -146,9 +151,10 @@ body.addEventListener("click", (event) => {
                const text = container.querySelector(".todo-text");
 
                text.innerText = editTask.value;
-                    
-               editTask.style.display = "none";
-               saveChange.style.display = "none";
+
+               editTask.hidden = true;
+               saveChange.hidden = true ;
+               event.target.hidden = false ;
                     
                todoArray[index].text = editTask.value;
                setPersistent(todoArray);
@@ -160,7 +166,7 @@ body.addEventListener("click", (event) => {
           case ("minus-button") :  
 
                let containerMinus = document.querySelectorAll(".todo-container"); // select all containers
-               let spotMinus = Array.from(containerMinus).indexOf(event.target.parentNode); // get the specific one
+               let spotMinus = Array.from(containerMinus).indexOf(event.target.parentNode); // get the index of target to take he info
                let numMinus = Number(todoArray[spotMinus].priority); // change the value to num
                if (numMinus === 1) break;
                numMinus --;
@@ -175,17 +181,17 @@ body.addEventListener("click", (event) => {
                break;
           case ("plus-button") :  
 
-               let containerPluss = document.querySelectorAll(".todo-container");
-               let spotPluss = Array.from(containerPluss).indexOf(event.target.parentNode);
-               let numPluss = Number(todoArray[spotPluss].priority);
-               if (numPluss === 5) break;
-               numPluss ++;
+               let containerPlus = document.querySelectorAll(".todo-container");
+               let spotPlus = Array.from(containerPlus).indexOf(event.target.parentNode);
+               let numPlus = Number(todoArray[spotPlus].priority);
+               if (numPlus === 5) break;
+               numPlus ++;
 
-               let containerForPluss = event.target.parentNode;
-               let priorityPluss = containerForPluss.querySelector(".todo-priority");
-               priorityPluss.innerText = numPluss ;
+               let containerForPlus = event.target.parentNode;
+               let priorityPlus = containerForPlus.querySelector(".todo-priority");
+               priorityPlus.innerText = numPlus ;
 
-               todoArray[spotPluss].priority = numPluss;
+               todoArray[spotPlus].priority = numPlus;
                setPersistent(todoArray);
 
                break;     
