@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
-     
+
 const input = document.getElementById("text-input");
 const addButton = document.getElementById("add-button");
 const viewSection = document.getElementById("view");
@@ -8,6 +8,7 @@ const clearBUtton = document.getElementById("clear");
 const sortButton = document.getElementById("sort-button");
 const counter = document.getElementById("counter");
 countTask();
+storgeData();
 
 function createContainer () {
      const container = document.createElement("div");
@@ -37,8 +38,7 @@ function createDeleteButton () {
      deleteButton.innerText = "x";
      deleteButton.classList.add("delete-button");
      return deleteButton;
-}
-
+};
 function countTask () {
      let getLocalStorage = localStorage.getItem("my-todo");
      if  (getLocalStorage === null) {
@@ -56,13 +56,15 @@ function createDiv (data) {
      container.append(getTime(data.date));
      return container;
 }
-let  todoArray= JSON.parse(localStorage.getItem("my-todo"));
+async function storgeData () {
+let  todoArray= await JSON.parse(localStorage.getItem("my-todo"));
 if  (todoArray === null) {
      todoArray = [];
 };
 for (const data of todoArray) {
      viewSection.append(createDiv(data));
 };
+}
 addButton.addEventListener("click", () => {
      
      let task = {
@@ -95,13 +97,4 @@ clearBUtton.addEventListener("click", () => {
      counter.textContent = 0;
      todoArray = [];
 });
-// deleteButton.addEventListener("click", ()=> {
-     // let todoCotainers = document.querySelectorAll(".todo-container")
-     // 
-     // for (let tasks of todoCotainers){
-          // tasks.firstChild.addEventListener("click", () =>{
-               // tasks.remove();
-               // })
-               // }
-               // })
-          })
+})
