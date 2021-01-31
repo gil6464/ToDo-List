@@ -54,12 +54,26 @@ function createEditButton () {
   editButton.innerText = "Edit";
   editButton.classList.add("edit-button");
   return editButton   
+};
+function createMinusButton () {
+     const minusButton = document.createElement("button");
+     minusButton.innerText = "-";
+     minusButton.classList.add("minus-button");
+     return minusButton;
+}
+function createPlusButton () {
+     const plusButton = document.createElement("button");
+     plusButton.innerText = "+";
+     plusButton.classList.add("plus-button");
+     return plusButton;
 }
 function createDiv (data) {
      const container =  createContainer();
      container.append(createDeleteButton());
      container.append(toDoItem(data.text));
      container.append(getPriorrity(data.priority));
+     container.append(createMinusButton());
+     container.append(createPlusButton());
      container.append(getTime(data.date));
      container.append(createEditButton());
      return container;
@@ -107,24 +121,26 @@ clearBUtton.addEventListener("click", () => {
 body.addEventListener("click", (event) => {
 
      switch (event.target.className) {
-          case ("delete-button"): 
+          case ("delete-button") : 
 
                const containerArray = document.querySelectorAll(".todo-container");
                const index = Array.from(containerArray).indexOf(event.target.parentNode);
                event.target.parentNode.remove();
-               todoArray.splice(index,1);
+               todoArray.splice(index, 1);
                countTask();
                setPersistent(todoArray);
                break;
      
-          case ("edit-button"):
+          case ("edit-button") :
                const editTask = document.createElement("input");
                const saveChange = document.createElement("button");
                saveChange.textContent = "Save"
                event.target.parentNode.append(editTask);
                event.target.parentNode.append(saveChange);
-
-               saveChange.addEventListener("click", () =>{
+               
+               saveChange.addEventListener("click", () => {
+               const containerArray = document.querySelectorAll(".todo-container");
+               const index = Array.from(containerArray).indexOf(event.target.parentNode);
                const container = event.target.parentNode;
                const text = container.querySelector(".todo-text");
 
@@ -133,15 +149,45 @@ body.addEventListener("click", (event) => {
                editTask.style.display = "none";
                saveChange.style.display = "none";
                     
-               const containerArray = document.querySelectorAll(".todo-container");
-               const index = Array.from(containerArray).indexOf(event.target.parentNode);
                todoArray[index].text = editTask.value;
                setPersistent(todoArray);
 
                     editTask.value = "";
-               })
+               });
                break;
-     }
+
+          case ("minus-button") :  
+               let containerMinus = document.querySelectorAll(".todo-container"); // select all containers
+               let spotMinus = Array.from(containerMinus).indexOf(event.target.parentNode); // get the specific one
+               let numMinus = Number(todoArray[spotMinus].priority); // change the value to num
+               if (numMinus === 1) break;
+               numMinus --;
+
+               let containerForMinus = event.target.parentNode;
+               let priority = containerForMinus.querySelector(".todo-priority");
+               priority.innerText = numMinus ;
+               
+               todoArray[spotMinus].priority = numMinus;
+               setPersistent(todoArray);
+
+               break;
+          case ("plus-button") :  
+               let containerPluss = document.querySelectorAll(".todo-container");
+               let spotPluss = Array.from(containerPluss).indexOf(event.target.parentNode);
+               let numPluss = Number(todoArray[spotPluss].priority);
+               if (numPluss === 5) break;
+               numPluss ++;
+
+               let containerForPluss = event.target.parentNode;
+               let priorityPluss = containerForPluss.querySelector(".todo-priority");
+               priorityPluss.innerText = numPluss ;
+
+               todoArray[spotPluss].priority = numPluss;
+               setPersistent(todoArray);
+
+               break;     
+
+     };
    
 })
 
