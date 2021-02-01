@@ -219,7 +219,7 @@ body.addEventListener("click", (event) => {
 
           case ("check-box") :
 
-               if (event.target.checked === true) {
+               if (event.target.checked) {
 
                  target.classList.add("done");
                  text.classList.add("done-text");  
