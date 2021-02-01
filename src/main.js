@@ -137,13 +137,18 @@ clearBUtton.addEventListener("click", () => {
 
 body.addEventListener("click", (event) => {
 
-     switch (event.target.className) {
-          case ("delete-button") : 
+     let container = document.querySelectorAll(".todo-container");
+     let target = event.target.parentNode;
+     let indexOfTarget =  Array.from(container).indexOf(event.target.parentNode);
+     const text = target.querySelector(".todo-text");
 
-               const containerArray = document.querySelectorAll(".todo-container");
-               const index = Array.from(containerArray).indexOf(event.target.parentNode);
+     switch (event.target.className) {
+
+
+          case ("delete-button") : 
+            
                event.target.parentNode.remove();
-               todoArray.splice(index, 1);
+               todoArray.splice(indexOfTarget, 1);
                countTask();
                setPersistent(todoArray);
                break;
@@ -158,10 +163,7 @@ body.addEventListener("click", (event) => {
                event.target.parentNode.append(saveChange);
               
                saveChange.addEventListener("click", () => {
-               const containerArray = document.querySelectorAll(".todo-container");
-               const index = Array.from(containerArray).indexOf(event.target.parentNode);
-               const container = event.target.parentNode;
-               const text = container.querySelector(".todo-text");
+               const text = target.querySelector(".todo-text");
 
                text.innerText = editTask.value;
 
@@ -169,7 +171,7 @@ body.addEventListener("click", (event) => {
                saveChange.hidden = true ;
                event.target.hidden = false ;
                     
-               todoArray[index].text = editTask.value;
+               todoArray[indexOfTarget].text = editTask.value;
                setPersistent(todoArray);
 
                     editTask.value = "";
@@ -178,33 +180,27 @@ body.addEventListener("click", (event) => {
 
           case ("minus-button") :  
 
-               let containerMinus = document.querySelectorAll(".todo-container"); // select all containers
-               let spotMinus = Array.from(containerMinus).indexOf(event.target.parentNode); // get the index of target to take he info
-               let numMinus = Number(todoArray[spotMinus].priority); // change the value to number
+               let numMinus = Number(todoArray[indexOfTarget].priority); 
                if (numMinus === 1) break;
                numMinus --;
 
-               let containerForMinus = event.target.parentNode; // update 
-               let priority = containerForMinus.querySelector(".todo-priority");
+               let priority = target.querySelector(".todo-priority");
                priority.innerText = numMinus ;
 
-               todoArray[spotMinus].priority = numMinus;
+               todoArray[indexOfTarget].priority = numMinus;
                setPersistent(todoArray);
 
                break;
           case ("plus-button") :  
 
-               let containerPlus = document.querySelectorAll(".todo-container");
-               let spotPlus = Array.from(containerPlus).indexOf(event.target.parentNode);
-               let numPlus = Number(todoArray[spotPlus].priority);
+               let numPlus = Number(todoArray[indexOfTarget].priority);
                if (numPlus === 5) break;
                numPlus ++;
 
-               let containerForPlus = event.target.parentNode;
-               let priorityPlus = containerForPlus.querySelector(".todo-priority");
+               let priorityPlus = target.querySelector(".todo-priority");
                priorityPlus.innerText = numPlus;
 
-               todoArray[spotPlus].priority = numPlus;
+               todoArray[indexOfTarget].priority = numPlus;
                setPersistent(todoArray);
 
                break;     
@@ -213,22 +209,16 @@ body.addEventListener("click", (event) => {
                if(event.target.checked === true) {
 
                event.target.parentNode.classList.add("done");
-               const textClass = event.target.parentNode.querySelector(".todo-text");
-               textClass.classList.add("done-text");  
+               text.classList.add("done-text");  
 
-               let containerDone = document.querySelectorAll(".todo-container");
-               let spotDone =  Array.from(containerDone).indexOf(event.target.parentNode);
-               todoArray[spotDone].done = true;
+               todoArray[indexOfTarget].done = true;
                setPersistent(todoArray);
                } else {
 
                 event.target.parentNode.classList.remove("done");
-                const unTextClass = event.target.parentNode.querySelector(".todo-text");
-                unTextClass.classList.remove("done-text");
-                let containerUnDone = document.querySelectorAll(".todo-container");
-                let spotUnDone =  Array.from(containerUnDone).indexOf(event.target.parentNode);
+                text.classList.remove("done-text");
 
-                todoArray[spotUnDone].done = false;
+                todoArray[indexOfTarget].done = false;
                 setPersistent(todoArray);    
                }
      };
