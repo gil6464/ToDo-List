@@ -97,8 +97,9 @@ function createDiv (data) {
      return container;
 };
 function countTask () {
-     
-   counter.textContent = todoArray.length;
+
+   const unDone = todoArray.filter(task => task.done === false);
+   counter.textContent = unDone.length
 };
 
 addButton.addEventListener("click", () => {
@@ -227,13 +228,15 @@ body.addEventListener("click", (event) => {
 
                  todoArray[indexOfTarget].done = true;
                  setPersistent(todoArray);
+                 countTask ()
                } else {
 
                  target.classList.remove("done");
                  text.classList.remove("done-text");
 
                  todoArray[indexOfTarget].done = false;
-                 setPersistent(todoArray);    
+                 setPersistent(todoArray);   
+                 countTask () 
                };
                break;    
      };
