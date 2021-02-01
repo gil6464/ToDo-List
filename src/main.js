@@ -25,10 +25,13 @@ function createContainer () {
      container.classList.add("todo-container");
      return container;
 };
-function toDoItem (text) {
+function toDoItem (data ,text) {
      const toDoItem = document.createElement("div");
      toDoItem.classList.add("todo-text");
      toDoItem.textContent = text;
+     if (data.done) {
+          toDoItem.classList.add("done-text");
+     };
      return toDoItem;
 };
 function getPriorrity(num) {
@@ -67,22 +70,28 @@ function createPlusButton () {
      plusButton.classList.add("plus-button");
      return plusButton;
 }
-function createCheckBox () {
+function createCheckBox (data) {
      const checkBox = document.createElement("input");
      checkBox.setAttribute("type", "checkbox");
      checkBox.classList.add("check-box");
+     if (data.done) {
+          checkBox.checked = true;
+     }
      return checkBox;
 }
 function createDiv (data) {
      const container =  createContainer();
-     container.append(createCheckBox());
+     container.append(createCheckBox(data));
      container.append(createMinusButton());
      container.append(getPriorrity(data.priority));
      container.append(createPlusButton());
-     container.append(toDoItem(data.text));
+     container.append(toDoItem(data, data.text));
      container.append(getTime(data.date));
      container.append(createDeleteButton());
      container.append(createEditButton());
+     if (data.done) {
+          container.classList.add("done");
+     }
      return container;
 }
 function countTask () {
@@ -96,7 +105,8 @@ addButton.addEventListener("click", () => {
      let task = {
           priority: selectedNum.value,
           text : input.value,
-          date : new Date().getTime()
+          date : new Date().getTime(),
+          done : false
      };
      viewSection.append(createDiv(task));
      
@@ -202,9 +212,24 @@ body.addEventListener("click", (event) => {
 
                if(event.target.checked === true) {
 
-               event.target.parentNode.classList.add ("done");
+               event.target.parentNode.classList.add("done");
                const textClass = event.target.parentNode.querySelector(".todo-text");
-               textClass.classList.add("done-text");   
+               textClass.classList.add("done-text");  
+
+               let containerDone = document.querySelectorAll(".todo-container");
+               let spotDone =  Array.from(containerDone).indexOf(event.target.parentNode);
+               todoArray[spotDone].done = true;
+               setPersistent(todoArray);
+               } else {
+
+                event.target.parentNode.classList.remove("done");
+                const unTextClass = event.target.parentNode.querySelector(".todo-text");
+                unTextClass.classList.remove("done-text");
+                let containerUnDone = document.querySelectorAll(".todo-container");
+                let spotUnDone =  Array.from(containerUnDone).indexOf(event.target.parentNode);
+
+                todoArray[spotUnDone].done = false;
+                setPersistent(todoArray);    
                }
      };
    
