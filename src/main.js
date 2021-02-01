@@ -67,8 +67,15 @@ function createPlusButton () {
      plusButton.classList.add("plus-button");
      return plusButton;
 }
+function createCheckBox () {
+     const checkBox = document.createElement("input");
+     checkBox.setAttribute("type", "checkbox");
+     checkBox.classList.add("check-box");
+     return checkBox;
+}
 function createDiv (data) {
      const container =  createContainer();
+     container.append(createCheckBox());
      container.append(createMinusButton());
      container.append(getPriorrity(data.priority));
      container.append(createPlusButton());
@@ -84,10 +91,6 @@ function countTask () {
 
 addButton.addEventListener("click", () => {
      
-     if (input.value === ' '){
-          alert("Must to write something!")
-          return;
-     }
      addTaskSound.play();
 
      let task = {
@@ -167,11 +170,11 @@ body.addEventListener("click", (event) => {
 
                let containerMinus = document.querySelectorAll(".todo-container"); // select all containers
                let spotMinus = Array.from(containerMinus).indexOf(event.target.parentNode); // get the index of target to take he info
-               let numMinus = Number(todoArray[spotMinus].priority); // change the value to num
+               let numMinus = Number(todoArray[spotMinus].priority); // change the value to number
                if (numMinus === 1) break;
                numMinus --;
 
-               let containerForMinus = event.target.parentNode;
+               let containerForMinus = event.target.parentNode; // update 
                let priority = containerForMinus.querySelector(".todo-priority");
                priority.innerText = numMinus ;
 
@@ -189,13 +192,20 @@ body.addEventListener("click", (event) => {
 
                let containerForPlus = event.target.parentNode;
                let priorityPlus = containerForPlus.querySelector(".todo-priority");
-               priorityPlus.innerText = numPlus ;
+               priorityPlus.innerText = numPlus;
 
                todoArray[spotPlus].priority = numPlus;
                setPersistent(todoArray);
 
                break;     
+          case ("check-box") :
 
+               if(event.target.checked === true) {
+
+               event.target.parentNode.classList.add ("done");
+               const textClass = event.target.parentNode.querySelector(".todo-text");
+               textClass.classList.add("done-text");   
+               }
      };
    
 });

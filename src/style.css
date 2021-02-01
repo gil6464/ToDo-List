@@ -70,4 +70,10 @@
  .todo-text {
      font-size: 20px;
  }
-
+ .done {
+     opacity: 0.5;
+     background-color: cornsilk;
+    }
+    .done-text {    
+    text-decoration: line-through;
+ }
