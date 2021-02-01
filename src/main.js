@@ -97,6 +97,7 @@ function createDiv (data) {
      return container;
 };
 function countTask () {
+     
    counter.textContent = todoArray.length;
 };
 
@@ -234,7 +235,7 @@ body.addEventListener("click", (event) => {
                  todoArray[indexOfTarget].done = false;
                  setPersistent(todoArray);    
                };
-               break;
+               break;    
      };
 });
 });
