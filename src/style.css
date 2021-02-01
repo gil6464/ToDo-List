@@ -1,79 +1,76 @@
- #pic {
-     object-fit: cover;
-     object-position: 50% 0 ;
-     display: block;
-     height: 200px;
-     width: 600px;
- }
- .image {
-      display: flex;
-      justify-content: center;
-      align-items: center;
- }
- .control {
-      display: flex;
-      justify-content: center;
- }
- .view {
-     display: flex;
-     align-items: center;
-     flex-direction: column;
+.control {
+    display: flex;
+    justify-content: center;
 }
- input {
+.view {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+#pic {
+    object-fit: cover;
+    object-position: 50% 0 ;
+    display: block;
+    height: 200px;
+    width: 600px;
+}
+.image {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+input {
     font-family: "Comic Sans MS", "Comic Sans", cursive;
- }
- #text-input {
-     width: 370px;
-     
- }
- #counter {
-     font-family: "Comic Sans MS", "Comic Sans", cursive;
-     font-size: 40px;
-     font-style: italic;
-     position: relative;
-     left: -130px;
-     top : -10px;
- }
- .todo-container {
-     border-bottom: 3px solid black;
-     display: flex;
-     height: 55px;
-     /* justify-content: space-between; */
-     width: 90%;
-     align-items: center;
-     
+}
+div {
+    font-family: "Comic Sans MS", "Comic Sans", cursive;
+    font-size: 15px;
+    margin: 1%;
+}
+button {
+    font-family: "Comic Sans MS", "Comic Sans", cursive;
+    background-color: blanchedalmond;
+    
+}
+#text-input {
+    width: 370px; 
+}
+#counter {
+    font-family: "Comic Sans MS", "Comic Sans", cursive;
+    font-size: 40px;
+    font-style: italic;
+    position: relative;
+    left: -130px;
+    top : -10px;
+}
+.todo-container {
+    border-bottom: 3px solid black;
+    display: flex;
+    height: 55px;
+    width: 90%;
+    align-items: center;  
 } 
- .delete-button {
-     flex : 0.1;
- }
-  .todo-text {
-      flex : 1;
-      text-align: center;
-  }
-  .todo-created-at {
-      flex : 1;
-      text-align: center;
- }
- .edit-button {
-     flex : 0.1;
- }
- div {
-     font-family: "Comic Sans MS", "Comic Sans", cursive;
-     font-size: 15px;
-     margin: 1%;
- }
- button {
-     font-family: "Comic Sans MS", "Comic Sans", cursive;
-     background-color: blanchedalmond;
-
- }
- .todo-text {
-     font-size: 20px;
- }
- .done {
-     opacity: 0.5;
-     background-color: cornsilk;
-    }
-    .done-text {    
+.delete-button {
+    flex : 0.1;
+}
+.todo-text {
+    flex : 1;
+    text-align: center;
+}
+.todo-created-at {
+    flex : 1;
+    text-align: center;
+}
+.edit-button {
+    flex : 0.1;
+}
+.todo-text {
+    font-size: 20px;
+}
+.done {
+    opacity: 0.5;
+    background-color: cornsilk;
+}
+.done-text {    
     text-decoration: line-through;
- }
+}

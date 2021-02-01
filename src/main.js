@@ -8,7 +8,9 @@ const selectedNum = document.getElementById("priority-selector");
 const clearBUtton = document.getElementById("clear");
 const sortButton = document.getElementById("sort-button");
 const counter = document.getElementById("counter");
-const addTaskSound = document.getElementById("addTaskSound");
+const addTaskSound = document.getElementById("add-task-sound");
+const deleteAllSound = document.getElementById("delete-all");
+const deleteOneSound = document.getElementById("delete-one");
 
 let  todoArray = await getPersistent();
 if  (todoArray === null) {
@@ -63,22 +65,22 @@ function createMinusButton () {
      minusButton.innerText = "-";
      minusButton.classList.add("minus-button");
      return minusButton;
-}
+};
 function createPlusButton () {
      const plusButton = document.createElement("button");
      plusButton.innerText = "+";
      plusButton.classList.add("plus-button");
      return plusButton;
-}
+};
 function createCheckBox (data) {
      const checkBox = document.createElement("input");
      checkBox.setAttribute("type", "checkbox");
      checkBox.classList.add("check-box");
      if (data.done) {
           checkBox.checked = true;
-     }
+     };
      return checkBox;
-}
+};
 function createDiv (data) {
      const container =  createContainer();
      container.append(createCheckBox(data));
@@ -91,9 +93,9 @@ function createDiv (data) {
      container.append(createEditButton());
      if (data.done) {
           container.classList.add("done");
-     }
+     };
      return container;
-}
+};
 function countTask () {
    counter.textContent = todoArray.length;
 };
@@ -132,14 +134,16 @@ clearBUtton.addEventListener("click", () => {
       counter.textContent = 0;
       todoArray = [];
       setPersistent(todoArray);
-     }
+      deleteAllSound.play();
+     };
 });
 
 body.addEventListener("click", (event) => {
 
-     let container = document.querySelectorAll(".todo-container");
-     let target = event.target.parentNode;
-     let indexOfTarget =  Array.from(container).indexOf(event.target.parentNode);
+     const container = document.querySelectorAll(".todo-container");
+     const target = event.target.parentNode;
+     const indexOfTarget =  Array.from(container).indexOf(target);
+     const priority = target.querySelector(".todo-priority");
      const text = target.querySelector(".todo-text");
 
      switch (event.target.className) {
@@ -147,10 +151,11 @@ body.addEventListener("click", (event) => {
 
           case ("delete-button") : 
             
-               event.target.parentNode.remove();
+               target.remove();
                todoArray.splice(indexOfTarget, 1);
                countTask();
                setPersistent(todoArray);
+               deleteOneSound.play();
                break;
      
           case ("edit-button") :
@@ -159,8 +164,8 @@ body.addEventListener("click", (event) => {
                const saveChange = document.createElement("button");
                saveChange.textContent = "Save";
                event.target.hidden = true ;
-               event.target.parentNode.append(editTask);
-               event.target.parentNode.append(saveChange);
+               target.append(editTask);
+               target.append(saveChange);
               
                saveChange.addEventListener("click", () => {
                const text = target.querySelector(".todo-text");
@@ -184,43 +189,44 @@ body.addEventListener("click", (event) => {
                if (numMinus === 1) break;
                numMinus --;
 
-               let priority = target.querySelector(".todo-priority");
                priority.innerText = numMinus ;
 
                todoArray[indexOfTarget].priority = numMinus;
                setPersistent(todoArray);
 
                break;
+
           case ("plus-button") :  
 
                let numPlus = Number(todoArray[indexOfTarget].priority);
                if (numPlus === 5) break;
                numPlus ++;
 
-               let priorityPlus = target.querySelector(".todo-priority");
-               priorityPlus.innerText = numPlus;
+               priority.innerText = numPlus;
 
                todoArray[indexOfTarget].priority = numPlus;
                setPersistent(todoArray);
 
-               break;     
+               break;   
+
           case ("check-box") :
 
                if(event.target.checked === true) {
 
-               event.target.parentNode.classList.add("done");
+               target.classList.add("done");
                text.classList.add("done-text");  
 
                todoArray[indexOfTarget].done = true;
                setPersistent(todoArray);
                } else {
 
-                event.target.parentNode.classList.remove("done");
-                text.classList.remove("done-text");
+               target.classList.remove("done");
+               text.classList.remove("done-text");
 
                 todoArray[indexOfTarget].done = false;
                 setPersistent(todoArray);    
-               }
+               };
+               break;
      };
    
 });
