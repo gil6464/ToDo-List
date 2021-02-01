@@ -102,22 +102,26 @@ function countTask () {
 
 addButton.addEventListener("click", () => {
      
-     addTaskSound.play();
+     if (input.value === '') {
+          alert("You must write something!");
+     } else {
+      addTaskSound.play();
 
-     let task = {
+      let task = {
           priority: selectedNum.value,
           text : input.value,
           date : new Date().getTime(),
           done : false
-     };
-     viewSection.append(createDiv(task));
+      };
+      viewSection.append(createDiv(task));
      
-     input.value = ""
+      input.value = ""
      
-     todoArray.push(task);
-     setPersistent(todoArray);    
+      todoArray.push(task);
+      setPersistent(todoArray);    
      
-     countTask();      
+      countTask();      
+     }
 });
 sortButton.addEventListener("click", () => {
      todoArray = todoArray.sort((a,b) => Number(b.priority) - Number(a.priority));
@@ -148,7 +152,6 @@ body.addEventListener("click", (event) => {
 
      switch (event.target.className) {
 
-
           case ("delete-button") : 
             
                target.remove();
@@ -170,16 +173,21 @@ body.addEventListener("click", (event) => {
                saveChange.addEventListener("click", () => {
                const text = target.querySelector(".todo-text");
 
-               text.innerText = editTask.value;
+               if (editTask.value === '') {
+                    alert("You must write something!");
+               }  else {
 
-               editTask.hidden = true;
-               saveChange.hidden = true ;
-               event.target.hidden = false ;
+                 text.innerText = editTask.value;
+ 
+                 editTask.hidden = true;
+                 saveChange.hidden = true ;
+                 event.target.hidden = false ;
                     
-               todoArray[indexOfTarget].text = editTask.value;
-               setPersistent(todoArray);
+                 todoArray[indexOfTarget].text = editTask.value;
+                 setPersistent(todoArray);
 
-                    editTask.value = "";
+                 editTask.value = "";
+               }
                });
                break;
 
@@ -211,24 +219,22 @@ body.addEventListener("click", (event) => {
 
           case ("check-box") :
 
-               if(event.target.checked === true) {
+               if (event.target.checked === true) {
 
-               target.classList.add("done");
-               text.classList.add("done-text");  
+                 target.classList.add("done");
+                 text.classList.add("done-text");  
 
-               todoArray[indexOfTarget].done = true;
-               setPersistent(todoArray);
+                 todoArray[indexOfTarget].done = true;
+                 setPersistent(todoArray);
                } else {
 
-               target.classList.remove("done");
-               text.classList.remove("done-text");
+                 target.classList.remove("done");
+                 text.classList.remove("done-text");
 
-                todoArray[indexOfTarget].done = false;
-                setPersistent(todoArray);    
+                 todoArray[indexOfTarget].done = false;
+                 setPersistent(todoArray);    
                };
                break;
      };
-   
 });
-
 });
