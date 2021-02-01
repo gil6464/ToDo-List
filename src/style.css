@@ -1,13 +1,3 @@
-@media only screen 
-  and (min-device-width: 375px) 
-  and (max-device-width: 667px)  { 
-    #pic {
-        width: 10%;
-    }
-    #counter {
-        width: 10%;
-    }
-}
 .control {
     display: flex;
     justify-content: center;
