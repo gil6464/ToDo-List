@@ -98,8 +98,9 @@ function createDiv (data) {
 };
 function countTask () {
 
-   const unDone = todoArray.filter(task => task.done === false);
-   counter.textContent = unDone.length
+   const doneTasks = todoArray.filter(task => task.done === true);
+//    counter.textContent = doneTasks.length;
+   counter.textContent = (todoArray.length - doneTasks.length);
 };
 
 addButton.addEventListener("click", () => {
