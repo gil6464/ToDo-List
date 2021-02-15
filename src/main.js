@@ -168,7 +168,6 @@ body.addEventListener("click", (event) => {
                break;
      
           case ("edit-button") :
-
                const editTask = document.createElement("input");
                const saveChange = document.createElement("button");
                saveChange.textContent = "Save";
@@ -185,8 +184,8 @@ body.addEventListener("click", (event) => {
 
                  text.innerText = editTask.value;
  
-                 editTask.hidden = true;
-                 saveChange.hidden = true ;
+                 editTask.remove();
+                 saveChange.remove();
                  event.target.hidden = false ;
                     
                  todoArray[indexOfTarget].text = editTask.value;
