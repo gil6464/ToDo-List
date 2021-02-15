@@ -190,8 +190,6 @@ body.addEventListener("click", (event) => {
                     
                  todoArray[indexOfTarget].text = editTask.value;
                  setPersistent(todoArray);
-
-                 editTask.value = "";
                }
                });
                break;
