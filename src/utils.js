@@ -6,8 +6,10 @@ const url =  "https://api.jsonbin.io/v3/b/601890cadde2a87f921c401f"
 function getPersistent() {
   const response = fetch(url + "/latest");
   return response.then((firstResponse) => { 
+  spinner.hidden = false;
   return firstResponse.json();
   }).then((secondResponse) => {
+  spinner.hidden = true;
    return secondResponse.record["my-todo"];
   })
 }
@@ -26,9 +28,9 @@ async function setPersistent(data) {
     body : JSON.stringify(dataObject)
   };
   const request = new Request(url, init);
-
+  spinner.hidden = false;
   return fetch(request).then((response) => {
-    
+    spinner.hidden = true;
    return response.ok;
   });
 }

@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded",start)
 function start() {
-     
+
 const body = document.getElementById("body");     
 const input = document.getElementById("text-input");
 const addButton = document.getElementById("add-button");
@@ -12,6 +12,8 @@ const counter = document.getElementById("counter");
 const addTaskSound = document.getElementById("add-task-sound");
 const deleteAllSound = document.getElementById("delete-all");
 const deleteOneSound = document.getElementById("delete-one");
+const spinner = document.getElementById("spinner");
+
 
 let todoArray;
 getPersistent().then(data => {
