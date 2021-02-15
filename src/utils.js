@@ -3,17 +3,13 @@ const DB_NAME = "my-todo";
 const url =  "https://api.jsonbin.io/v3/b/601890cadde2a87f921c401f"
 
 // Gets data from persistent storage by the given key and returns it
-async function getPersistent() {
-
-  const init = {
-    method :"GET"
-  };
-  
-  const request = new Request(url + "/latest", init);
-  const response = await fetch(request);
-  const body = await response.json();
-  return body.record ["my-todo"];
-
+function getPersistent() {
+  const response = fetch(url + "/latest");
+  return response.then((firstResponse) => { 
+  return firstResponse.json();
+  }).then((secondResponse) => {
+   return secondResponse.record["my-todo"];
+  })
 }
 
 // Saves the given data into persistent storage by the given key.
@@ -30,6 +26,9 @@ async function setPersistent(data) {
     body : JSON.stringify(dataObject)
   };
   const request = new Request(url, init);
-  const response = await fetch(request);
-  return response.ok;
+
+  return fetch(request).then((response) => {
+    
+   return response.ok;
+  });
 }

@@ -1,5 +1,6 @@
-document.addEventListener("DOMContentLoaded", async() => {
-
+document.addEventListener("DOMContentLoaded",start)
+function start() {
+     
 const body = document.getElementById("body");     
 const input = document.getElementById("text-input");
 const addButton = document.getElementById("add-button");
@@ -12,15 +13,17 @@ const addTaskSound = document.getElementById("add-task-sound");
 const deleteAllSound = document.getElementById("delete-all");
 const deleteOneSound = document.getElementById("delete-one");
 
-let  todoArray = await getPersistent();
-if  (todoArray === null) {
-     todoArray = [];
-};
-for (const data of todoArray) {
-     viewSection.append(createDiv(data));
-};
-
-countTask();
+let todoArray;
+getPersistent().then(data => {
+     todoArray = data;
+     if  (todoArray === null) {
+      todoArray = [];
+     }
+      for (const data of todoArray) {
+      viewSection.append(createDiv(data));
+     } 
+     countTask();
+})
 
 function createContainer () {
      const container = document.createElement("div");
@@ -97,9 +100,7 @@ function createDiv (data) {
      return container;
 };
 function countTask () {
-
    const doneTasks = todoArray.filter(task => task.done === true);
-//    counter.textContent = doneTasks.length;
    counter.textContent = (todoArray.length - doneTasks.length);
 };
 
@@ -240,6 +241,6 @@ body.addEventListener("click", (event) => {
                  countTask () 
                };
                break;    
-     };
-});
-});
+     }
+})
+}
