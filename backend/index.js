@@ -8,9 +8,8 @@ app.get('/v3/b/:id', (req, res) => {
     const id = req.params.id;
     console.log(id);
     try {
-        const binContent = fs.readFileSync(`./bins/${id}.json`, 
-        {encoding:'utf8', flag:'r'});
-        console.log(binContent);
+        const binContent = JSON.parse(fs.readFileSync(`./bins/${id}.json`, 
+        {encoding:'utf8', flag:'r'}));
         res.send(binContent);
     } catch(e) {
         res.status(422).json({"message": `Invalid Record: ${id}`});
@@ -68,6 +67,18 @@ app.delete('/v3/b/:id', (req, res) => {
     }
 })
 
+app.get('/v3/b/',(req, res) => {
+    let listBins = [];
+
+   const allBins = fs.readdirSync('./backend/bins');
+    console.log(allBins);
+   for (let bin of allBins) {
+       const raw = fs.readFileSync(`./backend/bins/${bin}`);
+       listBins.push(JSON.parse(raw));
+    }
+
+    res.send(listBins);
+});
 
 app.listen(3000, () => {
     console.log("app is running on port 3000")
