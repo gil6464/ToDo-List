@@ -1,7 +1,8 @@
 const express = require('express');
 const fs = require('fs');
 const app = express();
-app.use(express.json())
+app.use(express.json());
+const uuid = require('uuid');
 
 app.get('/v3/b/:id', (req, res) => {
     const id = req.params.id;
@@ -35,35 +36,21 @@ app.put('/v3/b/:id', (req, res) => {
         "version" : 1,
         "parentId" : id
     }
-    res.send(successMessage);
-    
+    res.send(successMessage);   
 })
 
 app.post('/v3/b/', (req, res) => {
-    const {body} = req.body;
-    const id = uuid.v4;
-    body.id = id;
-    fs.writeFileSync(`./backend/bins/${id}.json`, JSON.stringify(body, null , 4),
-    (err) => {
-        if (err) {
-            res.send("error");
-        } else {
-            res.send(body)
-        }   
-    });
+    const {body} = req;
+    const binId = uuid.v4();
+    body.id = binId;
+    try {
+    fs.writeFileSync(`./backend/bins/${binId}.json`, JSON.stringify(body, null , 4))
+    res.status(200).send(body);
+    } catch(e) { 
+        res.status(500).json({ message: "Error!", error: e})
+    }
 })
 
 app.listen(3000, () => {
     console.log("app is running on port 3000")
 });
-
-    
-      (err) => {
-        if (err) {
-          res.send("error");
-        } else {
-          res.send(body);
-        }
-      }
-    );
-  });
