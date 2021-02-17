@@ -45,11 +45,29 @@ app.post('/v3/b/', (req, res) => {
     body.id = binId;
     try {
     fs.writeFileSync(`./backend/bins/${binId}.json`, JSON.stringify(body, null , 4))
-    res.status(200).send(body);
+    res.status(200).send({
+        "record": req.body,
+        "metadata": {
+          "id": binId,
+          "createdAt": new Date().toISOString(),
+          "private": false
+        }
+    });
     } catch(e) { 
         res.status(500).json({ message: "Error!", error: e})
     }
 })
+
+app.delete('/v3/b/:id', (req, res) => {
+    const binId = req.params.id;
+    try {
+        fs.unlinkSync(`${__dirname}/bins/${binId}.json`)
+        res.send("deleted")
+    } catch(e) {
+        res.status(404).send("bin not found")
+    }
+})
+
 
 app.listen(3000, () => {
     console.log("app is running on port 3000")
