@@ -164,8 +164,7 @@ body.addEventListener("click", (event) => {
                deleteOneSound.play();
                break;
      
-          case ("edit-button") :
-
+                  case ("edit-button") :
                const editTask = document.createElement("input");
                const saveChange = document.createElement("button");
                saveChange.textContent = "Save";
@@ -182,14 +181,12 @@ body.addEventListener("click", (event) => {
 
                  text.innerText = editTask.value;
  
-                 editTask.hidden = true;
-                 saveChange.hidden = true ;
+                 editTask.remove();
+                 saveChange.remove();
                  event.target.hidden = false ;
                     
                  todoArray[indexOfTarget].text = editTask.value;
                  setPersistent(todoArray);
-
-                 editTask.value = "";
                }
                });
                break;
