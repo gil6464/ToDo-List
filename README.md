@@ -1,6 +1,7 @@
 #My todo list app! 📜🥳.
 
-##About the project
+##About the project.
+
 This project is my first project, and he is the ticket entry for Cyber4s course.
 
 This is the link to my page at GitHub: https://gil6464.github.io/ToDo-List/src/index 🖥️.
