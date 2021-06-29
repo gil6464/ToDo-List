@@ -1,6 +1,6 @@
-#My todo list app! 📜🥳.
+# My todo list app! 📜🥳.
 
-##About the project.
+## About the project.
 
 This project is my first project, and he is the ticket entry for Cyber4s course.
 
